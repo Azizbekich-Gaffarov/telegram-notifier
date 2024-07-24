@@ -1,0 +1,27 @@
+name: Telegram Notifier
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Bu ishni har kuni soat 00:00 da ishga tushiradi
+
+jobs:
+  notifyTelegram:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Telegram bot
+      run: |
+        timeout 86400 python your_script.py  # Bu botni 24 soat davomida ishlatadi
